@@ -48,7 +48,7 @@ public class CarServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String resourceBaseURL = "http://localhost:8080/REST_Lab/webapi/orders/";
+		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
 		String requestedOrder = "Kevin";
 		URL url;
 		HttpURLConnection con;
@@ -75,7 +75,7 @@ public class CarServlet extends HttpServlet {
 			
 
 			request.setAttribute("requested", requested);
-			String nextJSP = "/ViewBooking.jsp";
+			String nextJSP = "/Test.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 			dispatcher.forward(request, response);
 
