@@ -8,6 +8,7 @@ import ie.gmit.sw.DS_Project.Customer;
 import ie.gmit.sw.DS_Project.ObjectFactory;
 import ie.gmit.sw.JDBC.Hello;
 
+import java.io.FileWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigDecimal;
@@ -50,7 +51,14 @@ public class OrderResource {
 	 */
 
 	ArrayList<CarOrder> orders = new ArrayList<CarOrder>();
+	// Getting the registry
+			Registry registry = LocateRegistry.getRegistry();
 
+			// Looking up the registry for the remote object
+			Hello stub = (Hello) registry.lookup("howdayService");
+
+			// Calling the remote method using the obtained object
+			List<CarOrder> list = (List) stub.getName();
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 	@Path("/{value}")
@@ -153,22 +161,14 @@ public class OrderResource {
 			e.printStackTrace();
 		}
 
+
+		JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.DS_Project");
 		ObjectFactory objFactory = new ObjectFactory();
-
-		CarOrder co = objFactory.createCarOrder();
-		// Getting the registry
-		Registry registry = LocateRegistry.getRegistry();
-
-		// Looking up the registry for the remote object
-		Hello stub = (Hello) registry.lookup("howdayService");
-
-		// Calling the remote method using the obtained object
-		List<CarOrder> list = (List) stub.getName();
 		
-
+		CarOrder co = objFactory.createCarOrder();
 			// System.out.println("bc "+s.getBranch());
-			System.out.println("ID: " +list.get(0).getOrderNumber() );
-			co.setOrderNumber("test");
+			//System.out.println("ID: " +list.get(0).getOrderNumber());
+			co.setOrderNumber("Kevin");
 			co.setOrderDate(date);
 
 			Customer shipTo = new Customer();
@@ -193,7 +193,11 @@ public class OrderResource {
 			
 			orders.add(co);
 
-		
+			System.out.println("\n\n######### XML Format #########");
+			Marshaller m1 = jc.createMarshaller();
+			m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			m1.marshal(co, new FileWriter("order.xml"));
+			m1.marshal(co, System.out);
 
 	}
 

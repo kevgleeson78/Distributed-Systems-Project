@@ -49,7 +49,7 @@ public class CarServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String resourceBaseURL = "http://localhost:8080/REST_Lab/webapi/orders/";
-		String requestedOrder = "test";
+		String requestedOrder = "Kevin";
 		URL url;
 		HttpURLConnection con;
 		String resultInXml = "";
@@ -75,7 +75,7 @@ public class CarServlet extends HttpServlet {
 			
 
 			request.setAttribute("requested", requested);
-			String nextJSP = "/searchResults.jsp";
+			String nextJSP = "/ViewBooking.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 			dispatcher.forward(request, response);
 

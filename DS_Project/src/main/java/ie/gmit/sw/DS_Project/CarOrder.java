@@ -8,6 +8,8 @@
 
 package ie.gmit.sw.DS_Project;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -46,9 +48,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "car"
 })
 @XmlRootElement
-public class CarOrder {
+public class CarOrder implements Serializable{
 
-    @XmlElement(namespace = "http://sw.gmit.ie/ds/", required = true)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@XmlElement(namespace = "http://sw.gmit.ie/ds/", required = true)
     protected Customer billTo;
     @XmlElement(namespace = "http://sw.gmit.ie/ds/", required = true)
     protected Car car;

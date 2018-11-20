@@ -31,7 +31,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	    
 	      // JDBC driver name and database URL 
 	      String JDBC_DRIVER = "com.mysql.jdbc.Driver";   
-	      String DB_URL = "jdbc:mysql://localhost:3306/ordersdb";  
+	      String DB_URL = "jdbc:mysql://localhost:3306/carorder";  
 	      
 	      // Database credentials 
 	      String USER = "root"; 
@@ -52,7 +52,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	      System.out.println("Creating statement..."); 
 	      
 	      stmt = conn.createStatement();  
-	      String sql = "SELECT * FROM purchaseorder"; 
+	      String sql = "SELECT * FROM customers"; 
 	      ResultSet rs = stmt.executeQuery(sql);  
 	      
 	      //Extract data from result set 
@@ -60,7 +60,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	         // Retrieve by column name 
 	    
 	         
-	         String name = rs.getString("OrderNumber"); 
+	         String name = rs.getString("first_name"); 
 	         
 	         
 	         // Setting the values 
