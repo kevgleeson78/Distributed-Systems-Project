@@ -52,13 +52,7 @@ public class OrderResource {
 
 	ArrayList<CarOrder> orders = new ArrayList<CarOrder>();
 	// Getting the registry
-			Registry registry = LocateRegistry.getRegistry();
-
-			// Looking up the registry for the remote object
-			Hello stub = (Hello) registry.lookup("howdayService");
-
-			// Calling the remote method using the obtained object
-			List<CarOrder> list = (List) stub.getName();
+			
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 	@Path("/{value}")
@@ -180,7 +174,7 @@ public class OrderResource {
 			co.setBillTo(shipTo);
 			
 			Car items = new Car();
-			
+			co.setCar(items);
 			List<Car.Item> col = items.getItem();
 			Car.Item i1 = new Car.Item();
 			i1.setCarModel("Tyota");

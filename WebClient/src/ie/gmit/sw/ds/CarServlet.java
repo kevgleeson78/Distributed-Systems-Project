@@ -41,7 +41,7 @@ public class CarServlet extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+		super.init(config);
 	}
 
 	/**
@@ -49,11 +49,11 @@ public class CarServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
-		String requestedOrder = "Kevin";
+		String requestedOrder =  request.getParameter("param1");
 		URL url;
 		HttpURLConnection con;
 		String resultInXml = "";
-
+			System.out.println(requestedOrder);
 		// try to create a connection and request XML format
 		try {
 
@@ -68,17 +68,13 @@ public class CarServlet extends HttpServlet {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
 			StringReader reader = new StringReader(resultInXml);
-			CarOrder requested = (CarOrder) unmarshaller.unmarshal(reader);
-
-			
-			
-			
+			CarOrder requested = (CarOrder) unmarshaller.unmarshal(reader);	
 
 			request.setAttribute("requested", requested);
-			String nextJSP = "/Test.jsp";
+			
+			String nextJSP = "/DeleteBooking.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 			dispatcher.forward(request, response);
-
 			con.disconnect();
 
 		} catch (IOException | JAXBException e) {
