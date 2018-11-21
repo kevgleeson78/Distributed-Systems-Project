@@ -52,7 +52,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	      System.out.println("Creating statement..."); 
 	      
 	      stmt = conn.createStatement();  
-	      String sql = "SELECT * FROM customers"; 
+	      String sql = "SELECT * FROM customers;"; 
 	      ResultSet rs = stmt.executeQuery(sql);  
 	      
 	      //Extract data from result set 

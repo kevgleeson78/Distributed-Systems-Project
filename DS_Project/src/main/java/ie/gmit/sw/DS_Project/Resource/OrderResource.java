@@ -49,7 +49,9 @@ public class OrderResource {
 	 * parameter for each RESTful method. This means that there is no need to write
 	 * JAXB/Eclipselink Moxy code manually
 	 */
-
+	Registry registry = LocateRegistry.getRegistry();
+	// Looking up the registry for the remote object
+			Hello stub = (Hello) registry.lookup("howdayService");
 	ArrayList<CarOrder> orders = new ArrayList<CarOrder>();
 	// Getting the registry
 			
@@ -62,6 +64,9 @@ public class OrderResource {
 	 * HTTP request from the client
 	 */
 	public CarOrder getOrder(@PathParam("value") String value) {
+		for (CarOrder carOrder : orders) {
+			System.out.println(carOrder.getOrderNumber());
+		}
 		CarOrder requested = null;
 		for (CarOrder p : orders) {
 			if (p.getOrderNumber().equals(value)) {
@@ -156,42 +161,18 @@ public class OrderResource {
 		}
 
 
-		JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.DS_Project");
 		ObjectFactory objFactory = new ObjectFactory();
-		
-		CarOrder co = objFactory.createCarOrder();
-			// System.out.println("bc "+s.getBranch());
-			//System.out.println("ID: " +list.get(0).getOrderNumber());
-			co.setOrderNumber("Kevin");
-			co.setOrderDate(date);
 
-			Customer shipTo = new Customer();
-			shipTo.setName("John Doe");
-			shipTo.setStreet("123 Castle Road");
-			shipTo.setCity("Oranmore");
-			shipTo.setCountry(Country.IRELAND);
+		CarOrder car = objFactory.createCarOrder();
+		for(CarOrder c1:stub.getName()) {
 			
-			co.setBillTo(shipTo);
+			car = c1;
 			
-			Car items = new Car();
-			co.setCar(items);
-			List<Car.Item> col = items.getItem();
-			Car.Item i1 = new Car.Item();
-			i1.setCarModel("Tyota");
-			i1.setOrderDate(date);
-			i1.setPrice(new BigDecimal("100.99"));
+			orders.add(car);
 			
-			i1.setQuantity(1);
-			col.add(i1);
+		}
 
 			
-			orders.add(co);
-
-			System.out.println("\n\n######### XML Format #########");
-			Marshaller m1 = jc.createMarshaller();
-			m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m1.marshal(co, new FileWriter("order.xml"));
-			m1.marshal(co, System.out);
 
 	}
 

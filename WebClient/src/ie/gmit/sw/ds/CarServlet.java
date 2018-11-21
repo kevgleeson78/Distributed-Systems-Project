@@ -72,7 +72,7 @@ public class CarServlet extends HttpServlet {
 
 			request.setAttribute("requested", requested);
 			
-			String nextJSP = "/DeleteBooking.jsp";
+			String nextJSP = "/ViewBookings.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 			dispatcher.forward(request, response);
 			con.disconnect();
