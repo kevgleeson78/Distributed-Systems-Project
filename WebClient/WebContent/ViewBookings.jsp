@@ -11,8 +11,7 @@
 <nav>
 <a href="Home.jsp">Home</a>
 </nav>
-		
-     <h1>Order Number = ${requested.orderNumber}</h1>
+	<h1>Number = ${requested.orderNumber}</h1>
      
     <h1>Name= ${requested.billTo.name}</h1>
     <h1>Date = ${requested.orderDate}</h1>

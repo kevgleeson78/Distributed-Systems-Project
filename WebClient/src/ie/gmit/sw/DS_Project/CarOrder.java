@@ -47,7 +47,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "billTo",
     "car"
 })
-@XmlRootElement
+@XmlRootElement(name="carOrder")
 public class CarOrder implements Serializable{
 
     /**

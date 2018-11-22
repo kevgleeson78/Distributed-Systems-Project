@@ -32,7 +32,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	private static final long serialVersionUID = 1L;
 
 	// Implementing the interface method 
-	   public List<CarOrder> getName() throws Exception {  
+	   public List<CarOrder> getOrder() throws Exception {  
 	      List<CarOrder> list = new ArrayList<CarOrder>();   
 	    
 	      // JDBC driver name and database URL 

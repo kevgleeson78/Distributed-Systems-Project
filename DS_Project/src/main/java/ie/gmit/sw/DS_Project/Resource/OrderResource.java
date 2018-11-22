@@ -154,7 +154,7 @@ public class OrderResource {
 		ObjectFactory objFactory = new ObjectFactory();
 
 		CarOrder carOrder = objFactory.createCarOrder();
-		for(CarOrder c1:stub.getName()) {
+		for(CarOrder c1:stub.getOrder()) {
 			System.out.println(c1.getOrderNumber());
 			c1.getBillTo().getName();
 			carOrder = c1;

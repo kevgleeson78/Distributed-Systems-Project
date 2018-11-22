@@ -18,7 +18,7 @@ public class Client {
 	         Hello stub = (Hello) registry.lookup("howdayService"); 
 	    
 	         // Calling the remote method using the obtained object 
-	         List<CarOrder> list = (List)stub.getName(); 
+	         List<CarOrder> list = (List)stub.getOrder(); 
 	         for (CarOrder s:list){ 
 	            
 	            // System.out.println("bc "+s.getBranch()); 
