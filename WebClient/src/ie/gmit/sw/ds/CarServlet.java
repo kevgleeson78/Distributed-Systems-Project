@@ -21,6 +21,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import ie.gmit.sw.DS_Project.CarOrder;
+import ie.gmit.sw.DS_Project.ObjectFactory;
 
 /**
  * Servlet implementation class CarServlet
@@ -53,7 +54,7 @@ public class CarServlet extends HttpServlet {
 		URL url;
 		HttpURLConnection con;
 		String resultInXml = "";
-			System.out.println(requestedOrder);
+			
 		// try to create a connection and request XML format
 		try {
 
@@ -64,7 +65,7 @@ public class CarServlet extends HttpServlet {
 			InputStream in = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			resultInXml = br.lines().collect(Collectors.joining());
-			JAXBContext jaxbContext = JAXBContext.newInstance(CarOrder.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
 			StringReader reader = new StringReader(resultInXml);

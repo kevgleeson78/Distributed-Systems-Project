@@ -1,19 +1,13 @@
 package ie.gmit.sw.DS_Project.Resource;
 
 
-import ie.gmit.sw.DS_Project.Car;
+
 import ie.gmit.sw.DS_Project.CarOrder;
-import ie.gmit.sw.DS_Project.Country;
-import ie.gmit.sw.DS_Project.Customer;
+
 import ie.gmit.sw.DS_Project.ObjectFactory;
 import ie.gmit.sw.JDBC.Hello;
 
-import java.io.FileWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.*;
@@ -32,12 +26,7 @@ import javax.ws.rs.core.Response;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.JAXBElement;
-import javax.xml.transform.stream.StreamSource;
+
 
 @Singleton
 @Path("/orders")
@@ -64,6 +53,7 @@ public class OrderResource {
 	 * HTTP request from the client
 	 */
 	public CarOrder getOrder(@PathParam("value") String value) {
+		System.out.println(value);
 		for (CarOrder carOrder : orders) {
 			System.out.println(carOrder.getOrderNumber());
 		}
@@ -163,12 +153,13 @@ public class OrderResource {
 
 		ObjectFactory objFactory = new ObjectFactory();
 
-		CarOrder car = objFactory.createCarOrder();
+		CarOrder carOrder = objFactory.createCarOrder();
 		for(CarOrder c1:stub.getName()) {
+			System.out.println(c1.getOrderNumber());
+			c1.getBillTo().getName();
+			carOrder = c1;
 			
-			car = c1;
-			
-			orders.add(car);
+			orders.add(carOrder);
 			
 		}
 

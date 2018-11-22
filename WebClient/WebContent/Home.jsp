@@ -10,8 +10,8 @@
 </head>
 <body>
 <nav>
-<a href="CarServlet?param1=Frank">View Bookings</a>
-<a href="ViewBooking.jsp">View Booking</a>
+<a href="CarServlet?param1=Frank">View Booking</a>
+<a href="ViewBooking.jsp">View Bookings</a>
 <a href="DeleteBooking.jsp">Delete Booking</a>
 <a href="UpdateBooking.jsp">Update Booking</a>
 <a href="CreateBooking.jsp">Create Booking</a>

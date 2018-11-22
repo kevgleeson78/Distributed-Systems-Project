@@ -1,15 +1,21 @@
 package ie.gmit.sw.JDBC;
 
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import ie.gmit.sw.DS_Project.Car;
 import ie.gmit.sw.DS_Project.CarOrder;
+import ie.gmit.sw.DS_Project.Customer;
+
+
 
 
 
@@ -60,14 +66,34 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	         // Retrieve by column name 
 	    
 	         
-	         String name = rs.getString("first_name"); 
+	         String orderNumber = rs.getString("orderNumber"); 
+	         String name = rs.getString("name");
+	         String country = rs.getString("country");
+	         String street = rs.getString("street");
+	         String city = rs.getString("city");
+	         String model = rs.getString("model");
+	         BigDecimal price = rs.getBigDecimal("price");
+	         int quant = rs.getInt("quantity");
 	         
 	         
 	         // Setting the values 
 	         CarOrder po = new CarOrder(); 
-	         po.setOrderNumber(name); 
+	         po.setOrderNumber(orderNumber);
+	         Customer cust = new Customer();
+	         cust.setName(name);
+	         cust.setCountry(country);
+	         cust.setStreet(street);
+	         cust.setCity(city);
 	         
+	         po.setBillTo(cust);
+	         Car car = new Car();
+	         car.setCarModel(model);
+	         car.setPrice(price);
+	         car.setQuantity(quant);
+	         po.setCar(car);
 	         list.add(po); 
+	         
+	          
 	      } 
 	      rs.close(); 
 	      return list;     
