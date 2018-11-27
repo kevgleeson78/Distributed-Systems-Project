@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import ie.gmit.sw.DS_Project.Customer;
 
 
 public class ImplExample extends UnicastRemoteObject implements Hello {  
-	   
+	
 	   protected ImplExample() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
@@ -30,34 +31,33 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	// JDBC driver name and database URL 
+    String JDBC_DRIVER = "com.mysql.jdbc.Driver";   
+    String DB_URL = "jdbc:mysql://localhost:3306/carorder";  
+    
+    // Database credentials 
+    String USER = "root"; 
+    String PASS = "";  
+    
+     
 	// Implementing the interface method 
 	   public List<CarOrder> getOrder() throws Exception {  
 	      List<CarOrder> list = new ArrayList<CarOrder>();   
 	    
-	      // JDBC driver name and database URL 
-	      String JDBC_DRIVER = "com.mysql.jdbc.Driver";   
-	      String DB_URL = "jdbc:mysql://localhost:3306/carorder";  
 	      
-	      // Database credentials 
-	      String USER = "root"; 
-	      String PASS = "";  
-	      
-	      Connection conn = null; 
-	      Statement stmt = null;  
 	      
 	      //Register JDBC driver 
 	      Class.forName(JDBC_DRIVER);   
 	      
 	      //Open a connection
 	      System.out.println("Connecting to a selected database..."); 
-	      conn = DriverManager.getConnection(DB_URL, USER, PASS); 
+	      Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
 	      System.out.println("Connected database successfully...");  
 	      
 	      //Execute a query 
 	      System.out.println("Creating statement..."); 
 	      
-	      stmt = conn.createStatement();  
+	     Statement stmt = conn.createStatement();  
 	      String sql = "SELECT * FROM customers;"; 
 	      ResultSet rs = stmt.executeQuery(sql);  
 	      
@@ -97,6 +97,28 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	      } 
 	      rs.close(); 
 	      return list;     
-	   }  
+	   }
+
+	@Override
+	public void createOrder(CarOrder co) throws Exception{
+		//Register JDBC driver 
+	      Class.forName(JDBC_DRIVER); 
+	      
+	      //Open a connection
+	      System.out.println("Connecting to a selected database...Add Car"); 
+	     Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
+	      System.out.println("Connected database successfully...");  
+	      
+	      //Execute a query 
+	      System.out.println("Creating statement..."+co.getOrderNumber()); 
+	     
+	   Statement   stmt = conn.createStatement();  
+	      String sql = "INSERT INTO customers (name, orderNumber, orderDate,country,street,city, model,quantity, price) VALUES ('JAmes','"+co.getOrderNumber()+"','2016-12-12','Ireland','Holywell','Dublin','Ford',1,300.99);"; 
+	      stmt.executeUpdate(sql);
+		
+		
+	}
+	   
+	   
 
 }

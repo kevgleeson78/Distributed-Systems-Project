@@ -2,14 +2,16 @@ package ie.gmit.sw.DS_Project.Resource;
 
 
 
+import ie.gmit.sw.DS_Project.Car;
 import ie.gmit.sw.DS_Project.CarOrder;
-
+import ie.gmit.sw.DS_Project.Customer;
 import ie.gmit.sw.DS_Project.ObjectFactory;
 import ie.gmit.sw.JDBC.Hello;
 
-
+import java.math.BigDecimal;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.inject.Singleton;
@@ -71,22 +73,32 @@ public class OrderResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/{value}")
-	public Response createOrder(@PathParam("value") String value, CarOrder toCreate) {
+	public Response createOrder(@PathParam("value") String value, CarOrder toCreate) throws Exception {
+		System.out.println("Post");
+		
 		CarOrder requested = null;
-		for (CarOrder p : orders) {
-			if (p.getOrderNumber().equals(value)) {
-				requested = p;
+		
+		for(CarOrder p : orders) {
+			
+			if(p.getOrderNumber().equals(value)) {
+				toCreate = p;
 			}
 		}
-
-		if (requested != null) {
-			String msg = "The order number " + value + " already exists";
+		
+		if(toCreate != null) {
+			String msg = "The order number " + toCreate.getOrderNumber() + " already exists";
+			System.out.println(msg);
 			return Response.status(409).entity(msg).build();
-		} else {
+		}
+		else {
 			orders.add(toCreate);
+			stub.createOrder(toCreate);
 			String msg = "Resource created!";
+			System.out.println(msg);
 			return Response.status(201).entity(msg).build(); // return 201 for resource created
 		}
+		
+		
 	}
 
 	@PUT
@@ -108,7 +120,7 @@ public class OrderResource {
 			return Response.status(200).entity(msg).build();
 		} else {
 			String msg = "The order number " + value + " does not exist";
-			;
+			
 			return Response.status(404).entity(msg).build(); // return 404 for resource not found
 		}
 	}
@@ -130,7 +142,7 @@ public class OrderResource {
 			return Response.status(200).entity(msg).build();
 		} else {
 			String msg = "The order number " + value + " does not exist";
-			;
+			
 			return Response.status(404).entity(msg).build(); // return 404 for resource not found
 		}
 	}

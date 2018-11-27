@@ -1,12 +1,18 @@
 package ie.gmit.sw.ds;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -18,9 +24,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
+import ie.gmit.sw.DS_Project.Car;
 import ie.gmit.sw.DS_Project.CarOrder;
+import ie.gmit.sw.DS_Project.Customer;
 import ie.gmit.sw.DS_Project.ObjectFactory;
 
 /**
@@ -92,9 +109,59 @@ public class CarServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		//System.out.println(request.getParameter("name"));
+		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
+		String requestedOrder = request.getParameter("name");
+		URL url;		
+		HttpURLConnection con;
+		String resultInXml = "";
+		
+
+		// try to create a connection and request XML format
+		try {
+			
+			ObjectFactory objFactory = new ObjectFactory();
+
+			CarOrder car = objFactory.createCarOrder();
+			car.setOrderNumber(requestedOrder);
+			url = new URL(resourceBaseURL + requestedOrder);
+			con = (HttpURLConnection) url.openConnection();
+			System.out.println(url);
+			
+			
+			con.setDoOutput(true);
+			con.setInstanceFollowRedirects(false);
+			con.setRequestMethod("POST");
+			con.setRequestProperty("Content-Type", "application/xml");
+			JAXBContext jc = JAXBContext.newInstance(CarOrder.class);
+			Marshaller m1 = jc.createMarshaller();
+			
+			m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			m1.marshal(car, new FileWriter("test.xml"));
+			//m1.marshal(car, System.out);
+			OutputStream os = con.getOutputStream();
+
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer transformer = tf.newTransformer();
+			FileReader fileReader = new FileReader("test.xml");
+			StreamSource source = new StreamSource(fileReader);
+			StreamResult result = new StreamResult(os);
+			transformer.transform(source, result);
+
+			os.flush();
+			con.getResponseCode();
+			
+			con.disconnect();
+			
+		} catch (IOException | TransformerException | JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+
+		
 	}
 
 	/**

@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Create Booking</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>Create Booking</h1>
-<nav>
-<a href="Home.jsp">Home</a>
-</nav>
+<form action="CarServlet" method="POST">
+    <input type="text" name="name" />
+    <input type="submit" />
+</form>
 </body>
 </html>
