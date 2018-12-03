@@ -8,7 +8,16 @@
 </head>
 <body>
 <form action="CarServlet" method="POST">
-    <input type="text" name="name" />
+  Order Number:  <input type="text" name="orderNumber" /><br/>
+   Name:  <input type="text" name="name" /><br/>
+   Country: <input type ="text" name="country"/><br/>
+   Street: <input type ="text" name="street"/><br/>
+   City: <input type ="text" name="city"/><br/>
+   Car Model: <input type ="text" name="carModel"/><br/>
+   Quantity: <input type ="number" name="quantity"/><br/>
+   Price: <input type="number" name="price"/><br/>
+   Date: <input type="date" name="date"/>
+    
     <input type="submit" />
 </form>
 </body>

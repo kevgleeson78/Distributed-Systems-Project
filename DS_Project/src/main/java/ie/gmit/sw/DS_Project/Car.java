@@ -10,6 +10,8 @@ package ie.gmit.sw.DS_Project;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -68,7 +70,7 @@ public class Car implements Serializable{
     protected BigDecimal price;
     @XmlElement(namespace = "http://sw.gmit.ie/ds/")
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar orderDate;
+    protected String orderDate;
 
     /**
      * Gets the value of the carModel property.
@@ -142,7 +144,7 @@ public class Car implements Serializable{
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
@@ -154,7 +156,7 @@ public class Car implements Serializable{
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setOrderDate(XMLGregorianCalendar value) {
+    public void setOrderDate(String value) {
         this.orderDate = value;
     }
 

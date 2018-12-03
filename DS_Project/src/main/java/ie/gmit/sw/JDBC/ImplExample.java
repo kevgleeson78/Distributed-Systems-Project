@@ -113,7 +113,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	      System.out.println("Creating statement..."+co.getOrderNumber()); 
 	     
 	   Statement   stmt = conn.createStatement();  
-	      String sql = "INSERT INTO customers (name, orderNumber, orderDate,country,street,city, model,quantity, price) VALUES ('JAmes','"+co.getOrderNumber()+"','2016-12-12','Ireland','Holywell','Dublin','Ford',1,300.99);"; 
+	      String sql = "INSERT INTO customers (name, orderNumber, orderDate,country,street,city, model,quantity, price) VALUES ('"+co.getBillTo().getName()+"','"+co.getOrderNumber()+"','"+co.getCar().getOrderDate()+"','"+co.getBillTo().getCountry()+"','"+co.getBillTo().getStreet()+"','"+co.getBillTo().getCity()+"','"+co.getCar().getCarModel()+"','"+co.getCar().getQuantity()+"','"+co.getCar().getPrice()+"');"; 
 	      stmt.executeUpdate(sql);
 		
 		

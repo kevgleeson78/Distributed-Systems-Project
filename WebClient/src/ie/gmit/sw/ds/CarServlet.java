@@ -11,8 +11,11 @@ import java.io.StringReader;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -110,9 +113,18 @@ public class CarServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		
 		//System.out.println(request.getParameter("name"));
 		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
-		String requestedOrder = request.getParameter("name");
+		String requestedOrder = request.getParameter("orderNumber");
+		String custName = request.getParameter("name");
+		String date = request.getParameter("date");
+		String country = request.getParameter("country");
+		String street = request.getParameter("street");
+		String city = request.getParameter("city");
+		String model = request.getParameter("carModel");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		BigDecimal price = new BigDecimal(request.getParameter("price"));
 		URL url;		
 		HttpURLConnection con;
 		String resultInXml = "";
@@ -122,9 +134,24 @@ public class CarServlet extends HttpServlet {
 		try {
 			
 			ObjectFactory objFactory = new ObjectFactory();
-
-			CarOrder car = objFactory.createCarOrder();
-			car.setOrderNumber(requestedOrder);
+			
+			CarOrder carOrder = objFactory.createCarOrder();
+			carOrder.setOrderNumber(requestedOrder);
+			Customer cust = new Customer();
+			cust.setName(custName);
+			cust.setCountry(country);
+			cust.setCity(city);
+			cust.setStreet(street);
+			carOrder.setBillTo(cust);
+			Car car = new Car();
+			car.setCarModel(model);
+			car.setQuantity(quantity);
+			car.setPrice(price);
+			car.setOrderDate(date);
+			carOrder.setCar(car);
+			carOrder.setOrderDate(date);
+			
+			
 			url = new URL(resourceBaseURL + requestedOrder);
 			con = (HttpURLConnection) url.openConnection();
 			System.out.println(url);
@@ -138,7 +165,7 @@ public class CarServlet extends HttpServlet {
 			Marshaller m1 = jc.createMarshaller();
 			
 			m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m1.marshal(car, new FileWriter("test.xml"));
+			m1.marshal(carOrder, new FileWriter("test.xml"));
 			//m1.marshal(car, System.out);
 			OutputStream os = con.getOutputStream();
 

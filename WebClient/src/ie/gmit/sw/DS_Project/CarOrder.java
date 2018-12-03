@@ -9,6 +9,7 @@
 package ie.gmit.sw.DS_Project;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -62,7 +63,7 @@ public class CarOrder implements Serializable{
     protected String orderNumber;
     @XmlAttribute(name = "orderDate", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar orderDate;
+    protected String orderDate;
 
     /**
      * Gets the value of the billTo property.
@@ -144,7 +145,7 @@ public class CarOrder implements Serializable{
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
@@ -156,7 +157,7 @@ public class CarOrder implements Serializable{
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setOrderDate(XMLGregorianCalendar value) {
+    public void setOrderDate(String value) {
         this.orderDate = value;
     }
 

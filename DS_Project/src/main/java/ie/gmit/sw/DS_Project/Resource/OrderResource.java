@@ -81,12 +81,12 @@ public class OrderResource {
 		for(CarOrder p : orders) {
 			
 			if(p.getOrderNumber().equals(value)) {
-				toCreate = p;
+				requested = p;
 			}
 		}
 		
-		if(toCreate != null) {
-			String msg = "The order number " + toCreate.getOrderNumber() + " already exists";
+		if(requested != null) {
+			String msg = "The order number " + requested.getOrderNumber() + " already exists";
 			System.out.println(msg);
 			return Response.status(409).entity(msg).build();
 		}
