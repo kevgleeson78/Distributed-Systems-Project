@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
@@ -178,7 +179,10 @@ public class CarServlet extends HttpServlet {
 
 			os.flush();
 			con.getResponseCode();
-			
+			request.setAttribute("requested", carOrder);
+			String nextJSP = "/ViewBookings.jsp";
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+			dispatcher.forward(request, response);
 			con.disconnect();
 			
 		} catch (IOException | TransformerException | JAXBException e) {
@@ -202,7 +206,58 @@ public class CarServlet extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+
+		String requestedOrder = br.readLine();
+		br.close();
+		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
+		
+		URL url;		
+		HttpURLConnection con;
+		String resultInXml = "";
+		
+
+		// try to create a connection and request XML format
+		try {
+			
+			ObjectFactory objFactory = new ObjectFactory();
+
+			CarOrder carOrder = objFactory.createCarOrder();
+			carOrder.setOrderNumber(requestedOrder);
+			url = new URL(resourceBaseURL + requestedOrder);
+			con = (HttpURLConnection) url.openConnection();
+			System.out.println("DoDelete");
+			
+			
+			con.setDoOutput(true);
+			con.setInstanceFollowRedirects(false);
+			con.setRequestMethod("DELETE");
+			con.setRequestProperty("Content-Type", "application/xml");
+			JAXBContext jc = JAXBContext.newInstance(CarOrder.class);
+			Marshaller m1 = jc.createMarshaller();
+			
+			m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			m1.marshal(carOrder, new FileWriter("test.xml"));
+			//m1.marshal(car, System.out);
+			OutputStream os = con.getOutputStream();
+
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer transformer = tf.newTransformer();
+			FileReader fileReader = new FileReader("test.xml");
+			StreamSource source = new StreamSource(fileReader);
+			StreamResult result = new StreamResult(os);
+			transformer.transform(source, result);
+
+			os.flush();
+			
+			con.getResponseCode();
+			
+			con.disconnect();
+			
+		} catch (IOException | TransformerException | JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

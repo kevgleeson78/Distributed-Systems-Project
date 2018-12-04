@@ -74,7 +74,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	         String model = rs.getString("model");
 	         BigDecimal price = rs.getBigDecimal("price");
 	         int quant = rs.getInt("quantity");
-	         
+	         String date = rs.getString("orderDate");
 	         
 	         // Setting the values 
 	         CarOrder po = new CarOrder(); 
@@ -90,6 +90,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	         car.setCarModel(model);
 	         car.setPrice(price);
 	         car.setQuantity(quant);
+	         car.setOrderDate(date);
 	         po.setCar(car);
 	         list.add(po); 
 	         
@@ -117,6 +118,26 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	      stmt.executeUpdate(sql);
 		
 		
+	}
+
+	@Override
+	public void deleteOrder(CarOrder co) throws Exception {
+		
+		//Register JDBC driver 
+	      Class.forName(JDBC_DRIVER); 
+	      
+	      //Open a connection
+	      System.out.println("Connecting to a selected database...Delete Car"); 
+	     Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
+	      System.out.println("Connected database successfully...");  
+	      
+	      //Execute a query 
+	      System.out.println("Creating statement..."+co.getOrderNumber()); 
+	     
+	   Statement   stmt = conn.createStatement();
+	   String sql = "Delete from customers WHERE orderNumber = '"+co.getOrderNumber()+"';";
+	   System.out.println(sql);
+	      stmt.executeUpdate(sql);
 	}
 	   
 	   

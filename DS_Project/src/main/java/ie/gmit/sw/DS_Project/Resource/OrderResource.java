@@ -128,7 +128,7 @@ public class OrderResource {
 	@DELETE
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/{value}")
-	public Response deleteOrder(@PathParam("value") String value) {
+	public Response deleteOrder(@PathParam("value") String value) throws Exception {
 		CarOrder requested = null;
 		for (CarOrder p : orders) {
 			if (p.getOrderNumber().equals(value)) {
@@ -139,6 +139,7 @@ public class OrderResource {
 		if (requested != null) {
 			String msg = "The order number " + value + " was deleted!";
 			orders.remove(requested);
+			stub.deleteOrder(requested);
 			return Response.status(200).entity(msg).build();
 		} else {
 			String msg = "The order number " + value + " does not exist";

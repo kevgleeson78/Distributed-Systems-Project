@@ -8,13 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+
 <nav>
 <a href="Home.jsp">Home</a>
 </nav>
 	<h1>Number = ${requested.orderNumber}</h1>
      
     <h1>Name= ${requested.billTo.name}</h1>
-    <h1>Date = ${requested.orderDate}</h1>
+    <h1>Date = ${requested.car.orderDate}</h1>
     <h1>Country = ${requested.billTo.country}</h1>
     <h1>Street = ${requested.billTo.street}</h1>
     <h1>City = ${requested.billTo.city}</h1>

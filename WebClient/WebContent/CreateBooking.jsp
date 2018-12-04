@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<nav>
+<a href="Home.jsp">Home</a>
+</nav>
 <form action="CarServlet" method="POST">
   Order Number:  <input type="text" name="orderNumber" /><br/>
    Name:  <input type="text" name="name" /><br/>
