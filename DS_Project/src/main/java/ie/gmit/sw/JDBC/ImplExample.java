@@ -139,6 +139,25 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	   System.out.println(sql);
 	      stmt.executeUpdate(sql);
 	}
+
+	@Override
+	public void updateOrder(CarOrder co) throws Exception {
+		//Register JDBC driver 
+	      Class.forName(JDBC_DRIVER); 
+	      
+	      //Open a connection
+	      System.out.println("Connecting to a selected database...Update CarORder"); 
+	    Connection  conn = DriverManager.getConnection(DB_URL, USER, PASS); 
+	      System.out.println("Connected database successfully...");  
+	      
+	      //Execute a query 
+	      System.out.println("Creating statement..."); 
+	     
+	     Statement stmt = conn.createStatement();  
+	      String sql = "UPDATE customers SET name='DAvid' WHERE  `orderNumber`='"+co.getOrderNumber()+"';"; 
+	      stmt.executeUpdate(sql);
+		
+	}
 	   
 	   
 

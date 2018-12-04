@@ -105,7 +105,7 @@ public class OrderResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/{value}")
-	public Response updateOrder(@PathParam("value") String value, CarOrder updated) {
+	public Response updateOrder(@PathParam("value") String value, CarOrder updated) throws Exception {
 		CarOrder requested = null;
 		for (CarOrder p : orders) {
 			if (p.getOrderNumber().equals(value)) {
@@ -117,6 +117,7 @@ public class OrderResource {
 			String msg = "The order number " + value + " was updated!";
 			orders.remove(requested);
 			orders.add(updated);
+			stub.updateOrder(updated);
 			return Response.status(200).entity(msg).build();
 		} else {
 			String msg = "The order number " + value + " does not exist";

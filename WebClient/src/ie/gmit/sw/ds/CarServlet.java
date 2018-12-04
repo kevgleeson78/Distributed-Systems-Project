@@ -199,7 +199,59 @@ public class CarServlet extends HttpServlet {
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//System.out.println(request.getParameter("name"));
+				BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+
+				String requestedOrder = br.readLine();
+				br.close();
+				String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
+				
+				URL url;		
+				HttpURLConnection con;
+				String resultInXml = "";
+				
+
+				// try to create a connection and request XML format
+				try {
+					
+					ObjectFactory objFactory = new ObjectFactory();
+
+					CarOrder carOrder = objFactory.createCarOrder();
+					carOrder.setOrderNumber(requestedOrder);
+					url = new URL(resourceBaseURL + requestedOrder);
+					con = (HttpURLConnection) url.openConnection();
+					System.out.println(url);
+					
+					
+					con.setDoOutput(true);
+					con.setInstanceFollowRedirects(false);
+					con.setRequestMethod("PUT");
+					con.setRequestProperty("Content-Type", "application/xml");
+					JAXBContext jc = JAXBContext.newInstance(CarOrder.class);
+					Marshaller m1 = jc.createMarshaller();
+					
+					m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+					m1.marshal(carOrder, new FileWriter("test.xml"));
+					//m1.marshal(car, System.out);
+					OutputStream os = con.getOutputStream();
+
+					TransformerFactory tf = TransformerFactory.newInstance();
+					Transformer transformer = tf.newTransformer();
+					FileReader fileReader = new FileReader("test.xml");
+					StreamSource source = new StreamSource(fileReader);
+					StreamResult result = new StreamResult(os);
+					transformer.transform(source, result);
+
+					os.flush();
+					
+					con.getResponseCode();
+					
+					con.disconnect();
+					
+				} catch (IOException | TransformerException | JAXBException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	}
 
 	/**
