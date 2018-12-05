@@ -219,11 +219,19 @@ public class CarServlet extends HttpServlet {
 			paramList.add(value);
 
 		}
+		//String.relace is used to remove the + sign from the put request parameters
+		//Adapted from: https://stackoverflow.com/questions/18717557/remove-plus-sign-in-url-query-string
 		String orderNumber = paramList.get(0);
-		String name = paramList.get(1);
+		String name = paramList.get(1).replace("+", " ");
 		String date = paramList.get(2);
+		String country = paramList.get(3).replace("+", " ");
+		String street = paramList.get(4).replace("+", " ");
+		String city = paramList.get(5).replace("+", " ");
+		String model = paramList.get(6).replace("+", " ");
+		int quantity = Integer.parseInt(paramList.get(7));
+		BigDecimal price = new BigDecimal(paramList.get(8));
 		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
-
+		
 		URL url;
 		HttpURLConnection con;
 		String resultInXml = "";
@@ -235,11 +243,20 @@ public class CarServlet extends HttpServlet {
 
 			CarOrder carOrder = objFactory.createCarOrder();
 			carOrder.setOrderNumber(orderNumber);
-			
 			Customer cust = new Customer();
 			cust.setName(name);
+			cust.setCountry(country);
+			cust.setCity(city);
+			cust.setStreet(street);
 			carOrder.setBillTo(cust);
+			Car car = new Car();
+			car.setCarModel(model);
+			car.setQuantity(quantity);
+			car.setPrice(price);
+			car.setOrderDate(date);
+			carOrder.setCar(car);
 			carOrder.setOrderDate(date);
+			
 			url = new URL(resourceBaseURL + orderNumber);
 			
 			con = (HttpURLConnection) url.openConnection();

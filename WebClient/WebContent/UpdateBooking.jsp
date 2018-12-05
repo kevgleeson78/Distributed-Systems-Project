@@ -21,7 +21,7 @@
 		City: <input type="text" name="city" /><br/>
 		Car Model: <input type="text" name="model" /><br/>
 		Quantity: <input type="number" name="quantity" /><br/>
-		Price: <input type="text" name="price" /><br/>
+		Price: <input type="number" name="price" /><br/>
 		<input type="submit" value="Submit" /><br/>
 	</form>
 
