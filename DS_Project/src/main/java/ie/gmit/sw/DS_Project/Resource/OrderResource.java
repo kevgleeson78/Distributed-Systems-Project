@@ -106,6 +106,7 @@ public class OrderResource {
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/{value}")
 	public Response updateOrder(@PathParam("value") String value, CarOrder updated) throws Exception {
+		System.out.println("Put");
 		CarOrder requested = null;
 		for (CarOrder p : orders) {
 			if (p.getOrderNumber().equals(value)) {

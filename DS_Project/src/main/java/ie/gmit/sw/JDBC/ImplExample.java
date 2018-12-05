@@ -154,7 +154,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	      System.out.println("Creating statement..."); 
 	     
 	     Statement stmt = conn.createStatement();  
-	      String sql = "UPDATE customers SET name='DAvid' WHERE  `orderNumber`='"+co.getOrderNumber()+"';"; 
+	      String sql = "UPDATE customers SET name='"+co.getBillTo().getName()+"', orderDate='"+co.getOrderDate()+"'  WHERE  `orderNumber`='"+co.getOrderNumber()+"';"; 
 	      stmt.executeUpdate(sql);
 		
 	}

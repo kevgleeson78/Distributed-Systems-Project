@@ -8,15 +8,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -50,14 +56,14 @@ import ie.gmit.sw.DS_Project.ObjectFactory;
 @WebServlet("/CarServlet")
 public class CarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CarServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CarServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -67,15 +73,17 @@ public class CarServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
-		String requestedOrder =  request.getParameter("param1");
+		String requestedOrder = request.getParameter("param1");
 		URL url;
 		HttpURLConnection con;
 		String resultInXml = "";
-			
+
 		// try to create a connection and request XML format
 		try {
 
@@ -90,10 +98,10 @@ public class CarServlet extends HttpServlet {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
 			StringReader reader = new StringReader(resultInXml);
-			CarOrder requested = (CarOrder) unmarshaller.unmarshal(reader);	
+			CarOrder requested = (CarOrder) unmarshaller.unmarshal(reader);
 
 			request.setAttribute("requested", requested);
-			
+
 			String nextJSP = "/ViewBookings.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 			dispatcher.forward(request, response);
@@ -111,11 +119,12 @@ public class CarServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		
-		//System.out.println(request.getParameter("name"));
+
+		// System.out.println(request.getParameter("name"));
 		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
 		String requestedOrder = request.getParameter("orderNumber");
 		String custName = request.getParameter("name");
@@ -126,16 +135,15 @@ public class CarServlet extends HttpServlet {
 		String model = request.getParameter("carModel");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		BigDecimal price = new BigDecimal(request.getParameter("price"));
-		URL url;		
+		URL url;
 		HttpURLConnection con;
 		String resultInXml = "";
-		
 
 		// try to create a connection and request XML format
 		try {
-			
+
 			ObjectFactory objFactory = new ObjectFactory();
-			
+
 			CarOrder carOrder = objFactory.createCarOrder();
 			carOrder.setOrderNumber(requestedOrder);
 			Customer cust = new Customer();
@@ -151,23 +159,21 @@ public class CarServlet extends HttpServlet {
 			car.setOrderDate(date);
 			carOrder.setCar(car);
 			carOrder.setOrderDate(date);
-			
-			
+
 			url = new URL(resourceBaseURL + requestedOrder);
 			con = (HttpURLConnection) url.openConnection();
 			System.out.println(url);
-			
-			
+
 			con.setDoOutput(true);
 			con.setInstanceFollowRedirects(false);
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type", "application/xml");
 			JAXBContext jc = JAXBContext.newInstance(CarOrder.class);
 			Marshaller m1 = jc.createMarshaller();
-			
+
 			m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m1.marshal(carOrder, new FileWriter("test.xml"));
-			//m1.marshal(car, System.out);
+			// m1.marshal(car, System.out);
 			OutputStream os = con.getOutputStream();
 
 			TransformerFactory tf = TransformerFactory.newInstance();
@@ -184,113 +190,71 @@ public class CarServlet extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 			dispatcher.forward(request, response);
 			con.disconnect();
-			
+
 		} catch (IOException | TransformerException | JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
-
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println(request.getParameter("name"));
-				BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-
-				String requestedOrder = br.readLine();
-				br.close();
-				String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
-				
-				URL url;		
-				HttpURLConnection con;
-				String resultInXml = "";
-				
-
-				// try to create a connection and request XML format
-				try {
-					
-					ObjectFactory objFactory = new ObjectFactory();
-
-					CarOrder carOrder = objFactory.createCarOrder();
-					carOrder.setOrderNumber(requestedOrder);
-					url = new URL(resourceBaseURL + requestedOrder);
-					con = (HttpURLConnection) url.openConnection();
-					System.out.println(url);
-					
-					
-					con.setDoOutput(true);
-					con.setInstanceFollowRedirects(false);
-					con.setRequestMethod("PUT");
-					con.setRequestProperty("Content-Type", "application/xml");
-					JAXBContext jc = JAXBContext.newInstance(CarOrder.class);
-					Marshaller m1 = jc.createMarshaller();
-					
-					m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-					m1.marshal(carOrder, new FileWriter("test.xml"));
-					//m1.marshal(car, System.out);
-					OutputStream os = con.getOutputStream();
-
-					TransformerFactory tf = TransformerFactory.newInstance();
-					Transformer transformer = tf.newTransformer();
-					FileReader fileReader = new FileReader("test.xml");
-					StreamSource source = new StreamSource(fileReader);
-					StreamResult result = new StreamResult(os);
-					transformer.transform(source, result);
-
-					os.flush();
-					
-					con.getResponseCode();
-					
-					con.disconnect();
-					
-				} catch (IOException | TransformerException | JAXBException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	}
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// System.out.println(request.getParameter("name"));
+		ArrayList<String> paramList = new ArrayList<>();
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
-		String requestedOrder = br.readLine();
+		String data = br.readLine();
 		br.close();
+		//This is the only way I could figure out how to get multiple from inputs to variables.
+		String[] params = data.split("&");
+		Map<String, String> map = new HashMap<String, String>();
+		for (String param : params) {
+			String name = param.split("=")[0];
+			String value = param.split("=")[1];
+			map.put(name, value);
+			paramList.add(value);
+
+		}
+		String orderNumber = paramList.get(0);
+		String name = paramList.get(1);
+		String date = paramList.get(2);
 		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
-		
-		URL url;		
+
+		URL url;
 		HttpURLConnection con;
 		String resultInXml = "";
-		
 
 		// try to create a connection and request XML format
 		try {
-			
+
 			ObjectFactory objFactory = new ObjectFactory();
 
 			CarOrder carOrder = objFactory.createCarOrder();
-			carOrder.setOrderNumber(requestedOrder);
-			url = new URL(resourceBaseURL + requestedOrder);
+			carOrder.setOrderNumber(orderNumber);
+			
+			Customer cust = new Customer();
+			cust.setName(name);
+			carOrder.setBillTo(cust);
+			carOrder.setOrderDate(date);
+			url = new URL(resourceBaseURL + orderNumber);
+			
 			con = (HttpURLConnection) url.openConnection();
-			System.out.println("DoDelete");
-			
-			
+			System.out.println(url);
+
 			con.setDoOutput(true);
 			con.setInstanceFollowRedirects(false);
-			con.setRequestMethod("DELETE");
+			con.setRequestMethod("PUT");
 			con.setRequestProperty("Content-Type", "application/xml");
 			JAXBContext jc = JAXBContext.newInstance(CarOrder.class);
 			Marshaller m1 = jc.createMarshaller();
-			
+
 			m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m1.marshal(carOrder, new FileWriter("test.xml"));
-			//m1.marshal(car, System.out);
+			// m1.marshal(carOrder, System.out);
 			OutputStream os = con.getOutputStream();
 
 			TransformerFactory tf = TransformerFactory.newInstance();
@@ -301,15 +265,73 @@ public class CarServlet extends HttpServlet {
 			transformer.transform(source, result);
 
 			os.flush();
-			
+
 			con.getResponseCode();
-			
+
 			con.disconnect();
-			
+
 		} catch (IOException | TransformerException | JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+
+		String requestedOrder = br.readLine();
+		br.close();
+		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
+
+		URL url;
+		HttpURLConnection con;
+		String resultInXml = "";
+
+		// try to create a connection and request XML format
+		try {
+
+			ObjectFactory objFactory = new ObjectFactory();
+
+			CarOrder carOrder = objFactory.createCarOrder();
+			carOrder.setOrderNumber(requestedOrder);
+			url = new URL(resourceBaseURL + requestedOrder);
+			con = (HttpURLConnection) url.openConnection();
+			System.out.println("DoDelete");
+
+			con.setDoOutput(true);
+			con.setInstanceFollowRedirects(false);
+			con.setRequestMethod("DELETE");
+			con.setRequestProperty("Content-Type", "application/xml");
+			JAXBContext jc = JAXBContext.newInstance(CarOrder.class);
+			Marshaller m1 = jc.createMarshaller();
+
+			m1.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			m1.marshal(carOrder, new FileWriter("test.xml"));
+			// m1.marshal(car, System.out);
+			OutputStream os = con.getOutputStream();
+
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer transformer = tf.newTransformer();
+			FileReader fileReader = new FileReader("test.xml");
+			StreamSource source = new StreamSource(fileReader);
+			StreamResult result = new StreamResult(os);
+			transformer.transform(source, result);
+
+			os.flush();
+
+			con.getResponseCode();
+
+			con.disconnect();
+
+		} catch (IOException | TransformerException | JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
 }
