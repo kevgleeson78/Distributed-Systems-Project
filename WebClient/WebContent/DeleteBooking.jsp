@@ -14,12 +14,13 @@
 <nav>
 <a href="Home.jsp">Home</a>
 </nav>
-
+<h1>Delete Booking</h1>
+<h3>Please Enter a valid booking number to delete</h3>
 <form id="user-form">
     <table>
         <tr>
             <td> User id:</td>
-            <td><input type="text" name="name" id="name"/></td>
+            <td><input type="text" name="name" id="name" required="required"/></td>
         </tr>
        
     </table>

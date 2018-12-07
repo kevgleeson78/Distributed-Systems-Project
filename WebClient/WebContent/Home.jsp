@@ -10,8 +10,7 @@
 </head>
 <body>
 <nav>
-<a href="CarServlet?param1=1">View Booking</a>
-<a href="ViewBooking.jsp">View Bookings</a>
+<a href="ViewBooking.jsp">View Booking</a>
 <a href="DeleteBooking.jsp">Delete Booking</a>
 <a href="UpdateBooking.jsp">Update Booking</a>
 <a href="CreateBooking.jsp">Create Booking</a>
@@ -20,10 +19,6 @@
 <br>
 <h3>Date=<%= new Date() %>
 </h3>
-<form method="GET" action="CarServlet">
- <input type="text" name="param1"/>
-  <input type="submit" value="Submit"/>
-  
-</form>
+
 </body>
 </html>
