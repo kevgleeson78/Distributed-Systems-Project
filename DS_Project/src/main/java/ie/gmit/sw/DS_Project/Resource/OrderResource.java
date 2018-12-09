@@ -2,9 +2,9 @@ package ie.gmit.sw.DS_Project.Resource;
 
 
 
-import ie.gmit.sw.DS_Project.Car;
+
 import ie.gmit.sw.DS_Project.CarOrder;
-import ie.gmit.sw.DS_Project.Customer;
+
 import ie.gmit.sw.DS_Project.ObjectFactory;
 import ie.gmit.sw.JDBC.Hello;
 
@@ -126,7 +126,7 @@ public class OrderResource {
 			return Response.status(404).entity(msg).build(); // return 404 for resource not found
 		}
 	}
-
+/*
 	@DELETE
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/{value}")
@@ -149,7 +149,7 @@ public class OrderResource {
 			return Response.status(404).entity(msg).build(); // return 404 for resource not found
 		}
 	}
-
+*/
 	public OrderResource() throws Exception {
 		init();
 	}
@@ -181,5 +181,4 @@ public class OrderResource {
 			
 
 	}
-
 }

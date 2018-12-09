@@ -45,9 +45,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import ie.gmit.sw.DS_Project.Car;
+import ie.gmit.sw.DS_Project.Address;
 import ie.gmit.sw.DS_Project.CarOrder;
-import ie.gmit.sw.DS_Project.Customer;
+import ie.gmit.sw.DS_Project.Cars;
 import ie.gmit.sw.DS_Project.ObjectFactory;
 
 /**
@@ -94,7 +94,7 @@ public class CarServlet extends HttpServlet {
 			InputStream in = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			resultInXml = br.lines().collect(Collectors.joining());
-			JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(CarOrder.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
 			StringReader reader = new StringReader(resultInXml);
@@ -122,6 +122,7 @@ public class CarServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
 		// System.out.println(request.getParameter("name"));
@@ -146,18 +147,22 @@ public class CarServlet extends HttpServlet {
 
 			CarOrder carOrder = objFactory.createCarOrder();
 			carOrder.setOrderNumber(requestedOrder);
-			Customer cust = new Customer();
+			Address cust = new Address();
 			cust.setName(custName);
-			cust.setCountry(country);
+			cust.setCounty(country);
 			cust.setCity(city);
 			cust.setStreet(street);
 			carOrder.setBillTo(cust);
-			Car car = new Car();
-			car.setCarModel(model);
-			car.setQuantity(quantity);
-			car.setPrice(price);
-			car.setOrderDate(date);
-			carOrder.setCar(car);
+			Cars cars = new Cars();
+			carOrder.setCars(cars);
+			List<Cars.Car> col = cars.getCar();
+			Cars.Car i1 = new Cars.Car();
+			i1.setCarName(model);
+			i1.setQuantity(quantity);
+			i1.setPrice(price);
+			i1.setBookingDate(date);
+			col.add(i1);
+			carOrder.setCars(cars);
 			carOrder.setOrderDate(date);
 
 			url = new URL(resourceBaseURL + requestedOrder);
@@ -201,6 +206,7 @@ public class CarServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
+	/*
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// System.out.println(request.getParameter("name"));
@@ -292,10 +298,11 @@ public class CarServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
+	/*
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -349,6 +356,6 @@ public class CarServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	
 }

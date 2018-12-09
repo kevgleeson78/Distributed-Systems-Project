@@ -12,9 +12,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import ie.gmit.sw.DS_Project.Car;
+import ie.gmit.sw.DS_Project.Address;
 import ie.gmit.sw.DS_Project.CarOrder;
-import ie.gmit.sw.DS_Project.Customer;
+import ie.gmit.sw.DS_Project.Cars;
+import ie.gmit.sw.DS_Project.Cars.Car;
+
 
 
 
@@ -79,19 +81,23 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	         // Setting the values 
 	         CarOrder po = new CarOrder(); 
 	         po.setOrderNumber(orderNumber);
-	         Customer cust = new Customer();
+	         po.setOrderDate(date);
+	         Address cust = new Address();
 	         cust.setName(name);
-	         cust.setCountry(country);
+	         cust.setCounty(country);
 	         cust.setStreet(street);
 	         cust.setCity(city);
 	         
 	         po.setBillTo(cust);
-	         Car car = new Car();
-	         car.setCarModel(model);
-	         car.setPrice(price);
-	         car.setQuantity(quant);
-	         car.setOrderDate(date);
-	         po.setCar(car);
+	         Cars items = new Cars();
+	 		po.setCars(items);
+	 		List<Cars.Car> col = items.getCar();
+	 		Cars.Car i1 = new Cars.Car();
+	 		i1.setCarName(model);
+	 		i1.setPrice(price);
+	 		i1.setQuantity(quant);
+	 		i1.setBookingDate(date);
+	 		col.add(i1);
 	         list.add(po); 
 	         
 	          
@@ -109,17 +115,23 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	      System.out.println("Connecting to a selected database...Add Car"); 
 	     Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
 	      System.out.println("Connected database successfully...");  
-	      
+	      String carName = "";
+	      int quantity = 0;
+	      BigDecimal price = new BigDecimal(0);
 	      //Execute a query 
 	      System.out.println("Creating statement..."+co.getOrderNumber()); 
-	     
+	      for (Car p : co.getCars().getCar()) { 
+			carName = p.getCarName();
+			quantity = p.getQuantity();
+			price = p.getPrice();
+		}
 	   Statement   stmt = conn.createStatement();  
-	      String sql = "INSERT INTO customers (name, orderNumber, orderDate,country,street,city, model,quantity, price) VALUES ('"+co.getBillTo().getName()+"','"+co.getOrderNumber()+"','"+co.getCar().getOrderDate()+"','"+co.getBillTo().getCountry()+"','"+co.getBillTo().getStreet()+"','"+co.getBillTo().getCity()+"','"+co.getCar().getCarModel()+"','"+co.getCar().getQuantity()+"','"+co.getCar().getPrice()+"');"; 
+	      String sql = "INSERT INTO customers (name, orderNumber, orderDate,country,street,city, model,quantity, price) VALUES ('"+co.getBillTo().getName()+"','"+co.getOrderNumber()+"','"+co.getOrderDate()+"','"+co.getBillTo().getCounty()+"','"+co.getBillTo().getStreet()+"','"+co.getBillTo().getCity()+"','"+ carName+"','"+quantity+"','"+price+"');"; 
 	      stmt.executeUpdate(sql);
 		
 		
 	}
-
+/*
 	@Override
 	public void deleteOrder(CarOrder co) throws Exception {
 		
@@ -139,7 +151,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	   System.out.println(sql);
 	      stmt.executeUpdate(sql);
 	}
-
+*/
 	@Override
 	public void updateOrder(CarOrder co) throws Exception {
 		//Register JDBC driver 
@@ -149,12 +161,21 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	      System.out.println("Connecting to a selected database...Update CarORder"); 
 	    Connection  conn = DriverManager.getConnection(DB_URL, USER, PASS); 
 	      System.out.println("Connected database successfully...");  
-	      
+	      String carName = "";
+	      int quantity = 0;
+	      BigDecimal price = new BigDecimal(0);
+	      //Execute a query 
+	      System.out.println("Creating statement..."+co.getOrderNumber()); 
+	      for (Car p : co.getCars().getCar()) { 
+			carName = p.getCarName();
+			quantity = p.getQuantity();
+			price = p.getPrice();
+		}
 	      //Execute a query 
 	      System.out.println("Creating statement..."); 
 	     System.out.println(co.getBillTo().getStreet());
 	     Statement stmt = conn.createStatement();  
-	      String sql = "UPDATE customers SET name='"+co.getBillTo().getName()+"', orderDate='"+co.getOrderDate()+"', country='"+co.getBillTo().getCountry()+"', street='"+co.getBillTo().getStreet()+"', city='"+co.getBillTo().getCity()+"', model='"+co.getCar().getCarModel()+"', quantity='"+co.getCar().getQuantity()+"', price='"+co.getCar().getPrice()+"'  WHERE  `orderNumber`='"+co.getOrderNumber()+"';"; 
+	      String sql = "UPDATE customers SET name='"+co.getBillTo().getName()+"', orderDate='"+co.getOrderDate()+"', country='"+co.getBillTo().getCounty()+"', street='"+co.getBillTo().getStreet()+"', city='"+co.getBillTo().getCity()+"', model='"+carName+"', quantity='"+quantity+"', price='"+price+"'  WHERE  `orderNumber`='"+co.getOrderNumber()+"';"; 
 	      stmt.executeUpdate(sql);
 		
 	}

@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,9 +33,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import ie.gmit.sw.DS_Project.Car;
+import ie.gmit.sw.DS_Project.Address;
 import ie.gmit.sw.DS_Project.CarOrder;
-import ie.gmit.sw.DS_Project.Customer;
+import ie.gmit.sw.DS_Project.Cars;
 import ie.gmit.sw.DS_Project.ObjectFactory;
 
 /**
@@ -55,6 +56,7 @@ public class UpdateServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
 		String requestedOrder = request.getParameter("orderNumber");
@@ -99,6 +101,7 @@ public class UpdateServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
+	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// System.out.println(request.getParameter("name"));
 				ArrayList<String> paramList = new ArrayList<>();
@@ -140,18 +143,22 @@ public class UpdateServlet extends HttpServlet {
 
 					CarOrder carOrder = objFactory.createCarOrder();
 					carOrder.setOrderNumber(orderNumber);
-					Customer cust = new Customer();
+					Address cust = new Address();
 					cust.setName(name);
-					cust.setCountry(country);
+					cust.setCounty(country);
 					cust.setCity(city);
 					cust.setStreet(street);
 					carOrder.setBillTo(cust);
-					Car car = new Car();
-					car.setCarModel(model);
-					car.setQuantity(quantity);
-					car.setPrice(price);
-					car.setOrderDate(date);
-					carOrder.setCar(car);
+					Cars cars = new Cars();
+					carOrder.setCars(cars);
+					List<Cars.Car> col = cars.getCar();
+					Cars.Car i1 = new Cars.Car();
+					i1.setCarName(model);
+					i1.setQuantity(quantity);
+					i1.setPrice(price);
+					i1.setBookingDate(date);
+					col.add(i1);
+					carOrder.setCars(cars);
 					carOrder.setOrderDate(date);
 					
 					url = new URL(resourceBaseURL + orderNumber);

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,20 +20,17 @@
 </form>
 
 	<h3>Number = ${requested.orderNumber}</h3>
-     
-    <h3>Name= ${requested.billTo.name}</h3>
-    <h3>Date = ${requested.car.orderDate}</h3>
-    <h3>Country = ${requested.billTo.country}</h3>
-    <h3>Street = ${requested.billTo.street}</h3>
-    <h3>City = ${requested.billTo.city}</h3>
- 
-    <h3>Model = ${requested.car.carModel}</h3>
-    <h3>Quantity = ${requested.car.quantity}</h3>
-    <h3>Price = ${requested.car.price}</h3>
-    <h3>Order Date = ${requested.car.orderDate}</h3>
-
+    <h3>Date = ${requested.orderDate}</h3>
+   <h3>Name = ${requested.billTo.name}</h3>
+   <h3>Street = ${requested.billTo.street}</h3>
+      <h3>City = ${requested.billTo.city}</h3>
+   <h3>County = ${requested.billTo.county}</h3>
+   <c:forEach items="${requested.cars.car}" var="item">
+   <h3> Car = ${item.carName}</h3>
+   <h3> Quantity = ${item.quantity}</h3>
+   <h3> Price = ${item.price}</h3>
+</c:forEach>
    
-
 </body>
 </body>
 </html>

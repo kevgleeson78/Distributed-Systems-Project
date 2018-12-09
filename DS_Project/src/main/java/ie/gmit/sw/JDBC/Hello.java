@@ -11,6 +11,6 @@ public interface Hello extends Remote{
 	public List<CarOrder> getOrder() throws Exception;
 	
 	public void createOrder(CarOrder co) throws  Exception;
-	public void deleteOrder(CarOrder co)throws  Exception;
+//	public void deleteOrder(CarOrder co)throws  Exception;
 	public void updateOrder(CarOrder co) throws Exception;
 }
