@@ -68,6 +68,14 @@
 
 ## Running the application
 
-1. Right click the 
+1. In Eclipse Right click DS_Project -> run as-> run on server
+2. Within DS_project expand ie.gmit.sw.JDBC package.
+  Right click on server.java -> run as -> java application
+
+3. Within the webClient project expand the web content folder and right click home.jsp -> run as -> run on server.
+
+4. if the webClient resource on the left select it and move it over to the server so its with the DS_Project resource file.
+
+
 
 
