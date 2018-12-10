@@ -47,6 +47,7 @@
 </form>
 </body>
 <script>
+ 
 //Adapted From: https://stackoverflow.com/questions/5913/getting-the-text-from-a-drop-down-box
 // When the option is selected the price will update along with the car name
 function myFunction(e) {
