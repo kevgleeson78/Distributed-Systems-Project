@@ -24,8 +24,23 @@
 
 ## Cloning the project
 
-Create a new folder on your computer this will be used as a workspace with eclipse.
+1. Create a new folder on your computer this will be used as a workspace with eclipse.
 
-Open the folder and clone this repository to it using the git command:
+2. Open the folder and clone this repository to it using the git command:
 
-GIT``` git clone https://github.com/kevgleeson78/Distributed-Systems-Project.git ```
+``` git clone https://github.com/kevgleeson78/Distributed-Systems-Project.git ```
+
+## Eclipse setup
+1. Start eclipse and select file -> switch workspace -> other -> browse
+2. Browse to teh folder with the cloned repository then click launch
+3. when the workspace opens select file -> open projects from file system
+4. Navigate to the folder with the cloned repository and select the web client project first
+5. setup apache server within the workspace i have used apache 9 for this
+6. Change the jre to 1.8 And add tehn the webClient jar on the last screen setup page.
+7. right click the project and select properties Change the java compiler compliance to 1.8
+8. right click the project and select properties and project facets. Change the java version to 1.8
+  In the runtime tab select the server you have created earlier and click apply and close.
+9. Expand the web content folder and then the web-inf folder.
+10. Drag the jstl-1.2 jar file to the lib folder
+
+
