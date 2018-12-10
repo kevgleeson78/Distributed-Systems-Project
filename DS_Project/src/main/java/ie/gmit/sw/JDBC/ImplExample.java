@@ -32,7 +32,9 @@ public class ImplExample extends UnicastRemoteObject implements JDBCInterface {
 	/**
 	 * 
 	 */
+	   //
 	private static final long serialVersionUID = 1L;
+	//Adapted from: https://www.javatpoint.com/example-to-connect-to-the-mysql-database
 	// JDBC driver name and database URL 
     String JDBC_DRIVER = "com.mysql.jdbc.Driver";   
     String DB_URL = "jdbc:mysql://localhost:3306/carorder";  
@@ -60,12 +62,13 @@ public class ImplExample extends UnicastRemoteObject implements JDBCInterface {
 	      System.out.println("Creating statement..."); 
 	      
 	     Statement stmt = conn.createStatement();  
-	      String sql = "SELECT * FROM customers;"; 
+	      String sql = "SELECT * FROM customers;";
+	      //A list to hold teh query results.
 	      ResultSet rs = stmt.executeQuery(sql);  
 	      
 	      //Extract data from result set 
 	      while(rs.next()) { 
-	         // Retrieve by column name 
+	         // Retrieve all data by column name 
 	    
 	         
 	         String orderNumber = rs.getString("orderNumber"); 
@@ -78,7 +81,8 @@ public class ImplExample extends UnicastRemoteObject implements JDBCInterface {
 	         int quant = rs.getInt("quantity");
 	         String date = rs.getString("orderDate");
 	         
-	         // Setting the values 
+	         // Setting the values to a new car order object
+	         //Adapted from REST_LAB 3 file(JAXBPOExample) Available @ https://learnonline.gmit.ie/course/view.php?id=590
 	         CarOrder po = new CarOrder(); 
 	         po.setOrderNumber(orderNumber);
 	         po.setOrderDate(date);
@@ -120,7 +124,8 @@ public class ImplExample extends UnicastRemoteObject implements JDBCInterface {
 	      BigDecimal price = new BigDecimal(0);
 	      //Execute a query 
 	      System.out.println("Creating statement..."+co.getOrderNumber()); 
-	      for (Car p : co.getCars().getCar()) { 
+	      for (Car p : co.getCars().getCar()) {
+	    	  //USed to shorten the length of the query below
 			carName = p.getCarName();
 			quantity = p.getQuantity();
 			price = p.getPrice();
@@ -167,6 +172,7 @@ public class ImplExample extends UnicastRemoteObject implements JDBCInterface {
 	      //Execute a query 
 	      System.out.println("Creating statement..."+co.getOrderNumber()); 
 	      for (Car p : co.getCars().getCar()) { 
+	    	  //Used again to shorten the query below
 			carName = p.getCarName();
 			quantity = p.getQuantity();
 			price = p.getPrice();

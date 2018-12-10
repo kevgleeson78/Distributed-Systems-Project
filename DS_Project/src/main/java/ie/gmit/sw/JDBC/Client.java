@@ -5,7 +5,11 @@ import java.rmi.registry.Registry;
 import java.util.List;
 
 import ie.gmit.sw.DS_Project.CarOrder;
-
+/*
+ * Adapted from the lab: Java RMI Labs (weeks 5 & 6)
+ * Available @ https://learnonline.gmit.ie/course/view.php?id=590
+ * This file is not used for this application it is her for reference purpose only.
+ */
 
 public class Client {
 	 private Client() {}  
