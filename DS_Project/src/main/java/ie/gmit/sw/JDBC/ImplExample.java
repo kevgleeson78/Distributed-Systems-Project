@@ -131,7 +131,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 		
 		
 	}
-/*
+
 	@Override
 	public void deleteOrder(CarOrder co) throws Exception {
 		
@@ -151,7 +151,7 @@ public class ImplExample extends UnicastRemoteObject implements Hello {
 	   System.out.println(sql);
 	      stmt.executeUpdate(sql);
 	}
-*/
+
 	@Override
 	public void updateOrder(CarOrder co) throws Exception {
 		//Register JDBC driver 

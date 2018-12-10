@@ -302,7 +302,7 @@ public class CarServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
-	/*
+	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -356,6 +356,6 @@ public class CarServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-*/
+
 	
 }

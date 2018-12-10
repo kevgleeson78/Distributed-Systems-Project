@@ -126,7 +126,7 @@ public class OrderResource {
 			return Response.status(404).entity(msg).build(); // return 404 for resource not found
 		}
 	}
-/*
+
 	@DELETE
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/{value}")
@@ -149,7 +149,7 @@ public class OrderResource {
 			return Response.status(404).entity(msg).build(); // return 404 for resource not found
 		}
 	}
-*/
+
 	public OrderResource() throws Exception {
 		init();
 	}

@@ -18,14 +18,14 @@
   <input type="submit" value="Submit"/>
   
 </form>
-
+<c:forEach items="${requested.cars.car}" var="item">
 	<h3>Number = ${requested.orderNumber}</h3>
     <h3>Date = ${requested.orderDate}</h3>
    <h3>Name = ${requested.billTo.name}</h3>
    <h3>Street = ${requested.billTo.street}</h3>
       <h3>City = ${requested.billTo.city}</h3>
    <h3>County = ${requested.billTo.county}</h3>
-   <c:forEach items="${requested.cars.car}" var="item">
+   
    <h3> Car = ${item.carName}</h3>
    <h3> Quantity = ${item.quantity}</h3>
    <h3> Price = ${item.price}</h3>
