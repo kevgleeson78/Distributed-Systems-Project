@@ -131,6 +131,7 @@ public class CarServlet extends HttpServlet {
 		System.out.println("****** Result in XML *****");
 		System.out.println(resultInXml);
 		System.out.println();
+		 response.sendError(HttpServletResponse.SC_NOT_FOUND);
 	}
 
 	/**
@@ -398,6 +399,7 @@ public class CarServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	

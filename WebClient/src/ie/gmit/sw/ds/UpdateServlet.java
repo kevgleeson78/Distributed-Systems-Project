@@ -105,7 +105,7 @@ public class UpdateServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		// print out the results of the requests
 		System.out.println("****** Result in XML *****");
 		System.out.println(resultInXml);
