@@ -26,4 +26,6 @@
 
 Create a new folder on your computer this will be used as a workspace with eclipse.
 
-Open the folder and clone this repository to it.
+Open the folder and clone this repository to it using the git command:
+
+GIT``` git clone https://github.com/kevgleeson78/Distributed-Systems-Project.git ```
