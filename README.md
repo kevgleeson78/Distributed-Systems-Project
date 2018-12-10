@@ -21,3 +21,9 @@
 7. [jaxb-core_2.2.11.v201407311112](https://javaee.github.io/jaxb-v2/)
 8. [jaxb-xjc_2.2.11.v201407311112](http://git.eclipse.org/c/eclipselink/eclipselink.runtime.git/commit/?id=db16a89a2baa1792b7af76e54642da198c6077d7)
 
+
+## Cloning the project
+
+Create a new folder on your computer this will be used as a workspace with eclipse.
+
+Open the folder and clone this repository to it.
