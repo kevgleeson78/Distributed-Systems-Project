@@ -117,7 +117,7 @@ public class UpdateServlet extends HttpServlet {
 					String value = param.split("=")[1];
 					map.put(name, value);
 					paramList.add(value);
-
+System.out.println(paramList);
 				}
 				//String.relace is used to remove the + sign from the put request parameters
 				//Adapted from: https://stackoverflow.com/questions/18717557/remove-plus-sign-in-url-query-string
@@ -128,8 +128,10 @@ public class UpdateServlet extends HttpServlet {
 				String street = paramList.get(4).replace("+", " ");
 				String city = paramList.get(5).replace("+", " ");
 				String model = paramList.get(6).replace("+", " ");
-				int quantity = Integer.parseInt(paramList.get(7));
-				BigDecimal price = new BigDecimal(paramList.get(8));
+				BigDecimal price = new BigDecimal(paramList.get(7));
+			BigDecimal quantityBD = new BigDecimal(paramList.get(8));
+				int quantity = quantityBD.intValue();
+				BigDecimal finalPrice = price.multiply(quantityBD);
 				String resourceBaseURL = "http://localhost:8080/DS_Project/webapi/orders/";
 				
 				URL url;
@@ -155,7 +157,7 @@ public class UpdateServlet extends HttpServlet {
 					Cars.Car i1 = new Cars.Car();
 					i1.setCarName(model);
 					i1.setQuantity(quantity);
-					i1.setPrice(price);
+					i1.setPrice(finalPrice);
 					i1.setBookingDate(date);
 					col.add(i1);
 					carOrder.setCars(cars);

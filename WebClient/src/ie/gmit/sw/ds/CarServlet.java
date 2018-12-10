@@ -134,8 +134,11 @@ public class CarServlet extends HttpServlet {
 		String street = request.getParameter("street");
 		String city = request.getParameter("city");
 		String model = request.getParameter("carModel");
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		BigDecimal price = new BigDecimal(request.getParameter("price"));
+		BigDecimal quantityBD = new BigDecimal(request.getParameter("quantity"));
+			int quantity = quantityBD.intValue();
+			BigDecimal finalPrice = price.multiply(quantityBD);
+		
 		URL url;
 		HttpURLConnection con;
 		String resultInXml = "";
@@ -159,7 +162,7 @@ public class CarServlet extends HttpServlet {
 			Cars.Car i1 = new Cars.Car();
 			i1.setCarName(model);
 			i1.setQuantity(quantity);
-			i1.setPrice(price);
+			i1.setPrice(finalPrice);
 			i1.setBookingDate(date);
 			col.add(i1);
 			carOrder.setCars(cars);

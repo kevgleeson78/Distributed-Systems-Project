@@ -20,22 +20,42 @@
 	</form>
 	<form id="user-form">				
 		Order Number: <input type="text" name="orderNumber" value="${requested.orderNumber}" readonly="readonly"/><br/>
+		
 		Name: <input type="text" name="name" id="name" value="${requested.billTo.name}" required="required"/><br/>
 		Date: <input type="date" name="date"  value="${requested.orderDate}" required="required"/><br/>
 		Country: <input type="text" name="country"  value="${requested.billTo.county}" required="required"/><br/>
 		Street: <input type="text" name="street"  value="${requested.billTo.street}" required="required"/><br/>
 		City: <input type="text" name="city"  value="${requested.billTo.city}" required="required"><br/>
 		   <c:forEach items="${requested.cars.car}" var="item">
-   
-   Car Model: <input type="text" name="model"  value="${item.carName}" required="required"/><br/>
-		Quantity: <input type="number" name="quantity"  value="${item.quantity}" required="required"/><br/>
-		Price: <input type="number" name="price"  value="${item.price}" required="required"/><br/>
+		   <h4>Current Car: ${item.carName}</h4>
+		   <h4>Current Quantity: ${item.quantity}</h4>
+		   <h4>Current Price: ${item.price}</h4>
+		   <!-- set default selected from database
+		   		Adapted from: https://stackoverflow.com/questions/12008698/set-selected-option-on-existing-select-tag-with-jstl -->
+		 <h2>Change car</h2>
+   Car Model: <select id="selectCar"  onchange="myFunction(event)">
+   					<option disabled selected>Choose a car</option>
+    				<option value=150>Ford</option>
+   				 	<option value=200>Renault</option>
+    				<option value=500>BMW</option>
+    				<option value=600>Mercedes</option>
+				</select><br/>
+   		<input id="carModel" type ="hidden" name="carModel" value="${item.carName}" required="required"/>
+ Price: <input id="priceInput"  type="number" name="price" value="${item.price}" readonly="readonly"><br/>
+		Quantity: <input type="number" name="quantity" value ="${item.quantity}" required="required"/><br/>
+		
 </c:forEach>
 		
 		<input type="submit" value="UPDATE DETAILS" /><br/>
 	</form>
 
 	<script>
+	//Adapted From: https://stackoverflow.com/questions/5913/getting-the-text-from-a-drop-down-box
+	function myFunction(e) {
+	    document.getElementById("priceInput").value = e.target.value;
+	    document.getElementById("carModel").value =  $("#selectCar option:selected").text();
+	   
+	}
 		var form = $('#user-form');
 		var name = jQuery('input[name="name"]').val();
 		form.submit(function() {

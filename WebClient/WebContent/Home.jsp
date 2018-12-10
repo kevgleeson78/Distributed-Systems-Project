@@ -9,16 +9,12 @@
 <title>Hello</title>
 </head>
 <body>
+<h2>Car Booking Service</h2>
 <nav>
 <a href="ViewBooking.jsp">View Booking</a>
 <a href="DeleteBooking.jsp">Delete Booking</a>
 <a href="UpdateBooking.jsp">Update Booking</a>
 <a href="CreateBooking.jsp">Create Booking</a>
 </nav>
-<h2>Hi There!</h2>
-<br>
-<h3>Date=<%= new Date() %>
-</h3>
-
 </body>
 </html>
