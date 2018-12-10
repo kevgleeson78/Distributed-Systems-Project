@@ -9,7 +9,7 @@ package ie.gmit.sw.DS_Project.Resource;
 import ie.gmit.sw.DS_Project.CarOrder;
 
 import ie.gmit.sw.DS_Project.ObjectFactory;
-import ie.gmit.sw.JDBC.Hello;
+import ie.gmit.sw.JDBC.JDBCInterface;
 
 import java.math.BigDecimal;
 import java.rmi.registry.LocateRegistry;
@@ -41,7 +41,7 @@ public class OrderResource {
 	// Looking up the registry for the remote object
 	Registry registry = LocateRegistry.getRegistry();
 	// Getting the registry
-	Hello stub = (Hello) registry.lookup("howdayService");
+	JDBCInterface stub = (JDBCInterface) registry.lookup("jdbcService");
 	
 	// A list to store the initial data from the database. Populated by the init method.
 	ArrayList<CarOrder> orders = new ArrayList<CarOrder>();

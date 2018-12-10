@@ -15,7 +15,7 @@ public class Client {
 	         Registry registry = LocateRegistry.getRegistry(); 
 	    
 	         // Looking up the registry for the remote object 
-	         Hello stub = (Hello) registry.lookup("howdayService"); 
+	         JDBCInterface stub = (JDBCInterface) registry.lookup("jdbcService"); 
 	    
 	         // Calling the remote method using the obtained object 
 	         List<CarOrder> list = (List)stub.getOrder(); 

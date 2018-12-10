@@ -22,13 +22,13 @@ public class Server extends ImplExample{
 			
 			//Create an instance of a MessageService. As MessageServiceImpl implements the MessageService
 			//interface, it can be referred to as a MessageService type.
-			Hello ms = new ImplExample();
+			JDBCInterface ms = new ImplExample();
 			
 			//Start the RMI regstry on port 1099
 			LocateRegistry.createRegistry(1099);
 			
 			//Bind our remote object to the registry with the human-readable name "howdayService"
-			Naming.rebind("howdayService", ms);
+			Naming.rebind("jdbcService", ms);
 			
 			//Print a nice message to standard output
 			System.out.println("Server ready.");

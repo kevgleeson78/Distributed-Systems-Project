@@ -22,7 +22,7 @@ import ie.gmit.sw.DS_Project.Cars.Car;
 
 
 
-public class ImplExample extends UnicastRemoteObject implements Hello {  
+public class ImplExample extends UnicastRemoteObject implements JDBCInterface {  
 	
 	   protected ImplExample() throws RemoteException {
 		super();

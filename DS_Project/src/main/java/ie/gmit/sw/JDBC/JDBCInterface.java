@@ -7,7 +7,7 @@ import java.util.List;
 import ie.gmit.sw.DS_Project.CarOrder;
 
 
-public interface Hello extends Remote{
+public interface JDBCInterface extends Remote{
 	public List<CarOrder> getOrder() throws Exception;
 	
 	public void createOrder(CarOrder co) throws  Exception;
