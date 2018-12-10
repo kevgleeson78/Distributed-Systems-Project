@@ -85,7 +85,7 @@
 * 250
 * 78198
 
-7. You can also create your own order within the create order page.
+7. You can also create your own order within the create booking page.
 
 
 
