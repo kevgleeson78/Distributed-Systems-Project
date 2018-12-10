@@ -1,6 +1,6 @@
 # Distributed-Systems-Project Car booking service
 4th year Distributed systems project
-## A RESTfull architectural distributed web application, web client and jdbc system using remote method invocation between the jdbc database and jersey web service. 
+## A RESTfull architectural distributed web application, web client and jdbc system using remote method invocation between a jdbc database and jersey web service. 
 ## xml marshalling/ Unmarshalling is used to send data over a netwrok using the http methods:
 * get to read data from the database
 * post to create a new objects and send them to the database
