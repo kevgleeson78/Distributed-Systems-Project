@@ -22,7 +22,7 @@
   
 </form>
 <c:forEach items="${requested.cars.car}" var="item">
-	<h3>Number = ${requested.orderNumber}</h3>
+	<h3>Order Number = ${requested.orderNumber}</h3>
     <h3>Date = ${requested.orderDate}</h3>
    <h3>Name = ${requested.billTo.name}</h3>
    <h3>Street = ${requested.billTo.street}</h3>
