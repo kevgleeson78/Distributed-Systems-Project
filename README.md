@@ -30,17 +30,31 @@
 
 ``` git clone https://github.com/kevgleeson78/Distributed-Systems-Project.git ```
 
-## Eclipse setup
+## Eclipse setup WebClient Project
 1. Start eclipse and select file -> switch workspace -> other -> browse
-2. Browse to teh folder with the cloned repository then click launch
-3. when the workspace opens select file -> open projects from file system
+2. Browse to the folder with the cloned repository then click launch
+3. When the workspace opens select file -> open projects from file system
 4. Navigate to the folder with the cloned repository and select the web client project first
-5. setup apache server within the workspace i have used apache 9 for this
-6. Change the jre to 1.8 And add tehn the webClient jar on the last screen setup page.
-7. right click the project and select properties Change the java compiler compliance to 1.8
-8. right click the project and select properties and project facets. Change the java version to 1.8
+5. Setup apache server within the workspace i have used apache 9 for this
+6. Change the jre to 1.8 And add then add the webClient jar on the last screen setup page.
+7. Right click the project and select properties Change the java compiler compliance to 1.8
+8. Right click the project and select properties and project facets. Change the java version to 1.8
   In the runtime tab select the server you have created earlier and click apply and close.
 9. Expand the web content folder and then the web-inf folder.
 10. Drag the jstl-1.2 jar file to the lib folder
+
+## Eclipse setup DS_Project Project
+1. select file -> open projects from file system
+2. Browse to the DS_Project folder in the repository
+3. Right click the project and select properties Change the java compiler compliance to 1.8
+4. Right click the project and select properties and project facets. Change the java version to 1.8
+  In the runtime tab select the server you have created earlier and click apply and close.
+5. Right click the project and select properties -> build path -> libraries tab -> Add external jars
+6. Add the remaining jars downloaded apart from the tstl-1.2 then click apply and close.
+
+
+## Running the application
+
+1. 
 
 
