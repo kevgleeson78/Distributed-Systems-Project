@@ -33,7 +33,8 @@
 
 
 <script>
-
+// In order ot use put or delete methods jquery has to be used as html forms only accept get and post methods
+// The belwo code was adapted from: https://stackoverflow.com/questions/2153917/how-to-send-a-put-delete-request-in-jquery
 var form = $('#user-form');
 
 form.submit(function()

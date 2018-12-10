@@ -9,7 +9,6 @@
 </script>
 </head>
 <body>
-	
 	<nav>
 		<a href="Home.jsp">Home</a>
 		<a href="ViewBooking.jsp">View Booking</a>
@@ -22,7 +21,8 @@
 	Order Number: <input type="text" name="orderNumber"  required="required"/><br/>
 	<input type="submit" value="GET DETAILS" /><br/>
 	</form>
-	<form id="user-form">				
+	<form id="user-form">
+	<!-- Request used to access the data within the order object a foreach loop needed for the cars as it is a nested list. -->				
 		Order Number: <input type="text" name="orderNumber" value="${requested.orderNumber}" readonly="readonly"/><br/>
 		
 		Name: <input type="text" name="name" id="name" value="${requested.billTo.name}" required="required"/><br/>
@@ -31,24 +31,24 @@
 		Street: <input type="text" name="street"  value="${requested.billTo.street}" required="required"/><br/>
 		City: <input type="text" name="city"  value="${requested.billTo.city}" required="required"><br/>
 		   <c:forEach items="${requested.cars.car}" var="item">
-		   <h4>Current Car: ${item.carName}</h4>
-		   <h4>Current Quantity: ${item.quantity}</h4>
-		   <h4>Current Price: ${item.price}</h4>
-		   <!-- set default selected from database
-		   		Adapted from: https://stackoverflow.com/questions/12008698/set-selected-option-on-existing-select-tag-with-jstl -->
-		 <h2>Change car</h2>
-   Car Model: <select id="selectCar"  onchange="myFunction(event)">
-   					<option disabled selected>Choose a car</option>
-    				<option value=150>Ford</option>
-   				 	<option value=200>Renault</option>
-    				<option value=500>BMW</option>
-    				<option value=600>Mercedes</option>
-				</select><br/>
-   		<input id="carModel" type ="hidden" name="carModel" value="${item.carName}" required="required"/>
- Price: <input id="priceInput"  type="number" name="price" value="${item.price}" readonly="readonly"><br/>
-		Quantity: <input type="number" name="quantity" value ="${item.quantity}" required="required"/><br/>
+			   <h4>Current Car: ${item.carName}</h4>
+			   <h4>Current Quantity: ${item.quantity}</h4>
+			   <h4>Current Price: ${item.price}</h4>
+			   <!-- set default selected from database
+			   		Adapted from: https://stackoverflow.com/questions/12008698/set-selected-option-on-existing-select-tag-with-jstl -->
+			 <h2>Change car</h2>
+	  		 Car Model: <select id="selectCar"  onchange="myFunction(event)">
+	   					<option disabled selected>Choose a car</option>
+	    				<option value=150>Ford</option>
+	   				 	<option value=200>Renault</option>
+	    				<option value=500>BMW</option>
+	    				<option value=600>Mercedes</option>
+					</select><br/>
+	   				<input id="carModel" type ="hidden" name="carModel" value="${item.carName}" required="required"/>
+			 Price: <input id="priceInput"  type="number" name="price" value="${item.price}" readonly="readonly"><br/>
+			 Quantity: <input type="number" name="quantity" value ="${item.quantity}" required="required"/><br/>
 		
-</c:forEach>
+		</c:forEach>
 		
 		<input type="submit" value="UPDATE DETAILS" /><br/>
 	</form>
@@ -60,6 +60,10 @@
 	    document.getElementById("carModel").value =  $("#selectCar option:selected").text();
 	   
 	}
+	// In order ot use put or delete methods jquery has to be used as html form only accept get and post methods
+	// The below code was adapted from: https://stackoverflow.com/questions/2153917/how-to-send-a-put-delete-request-in-jquery
+	//Serialized form data can be used to send all of the input parameters at once to the servlet.
+	// A map can then be used to extract the data from the url see updateServlet
 		var form = $('#user-form');
 		var name = jQuery('input[name="name"]').val();
 		form.submit(function() {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,7 @@
 <a href="UpdateBooking.jsp">Update Booking</a>	
 <a href="DeleteBooking.jsp">Delete Booking</a>
 </nav>
+ <!-- The below form can be accessed by the servlet via the name of each input within the request using the request.getPerameter("name") -->
 <h1>Create a new Booking</h1>
 <form action="CarServlet" method="POST">
    Order Number: <input type="text" name="orderNumber" value="<%= (int) (Math.random() * 100000) %>" readonly="readonly"/><br/>

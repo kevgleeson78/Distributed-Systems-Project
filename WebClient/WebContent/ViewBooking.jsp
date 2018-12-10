@@ -16,11 +16,14 @@
 </nav>
 <h1>View Booking</h1>
 <h2>Please enter an order number and submit to display the details</h2>
+<!-- A simple get method form  Getting the order number as a parameter and passing it to the carSrevlet which in turn passed it to the webservice via url-->
 <form method="GET" action="CarServlet">
  <input type="text" name="param1" required="required"/>
   <input type="submit" value="Submit"/>
   
 </form>
+<!-- GEt the returned data from the get request reqyested is the attribute set in the carServlet doGEt Method. 
+		Each variable can then be printed out to the user on this jsp page -->
 <c:forEach items="${requested.cars.car}" var="item">
 	<h3>Order Number = ${requested.orderNumber}</h3>
     <h3>Date = ${requested.orderDate}</h3>
