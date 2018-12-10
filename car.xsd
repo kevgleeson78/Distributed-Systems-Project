@@ -1,0 +1,65 @@
+<!--This Schema was adapted from the in class lab week 3 data binding lab @ https://learnonline.gmit.ie/course/view.php?id=590 -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gmit="http://sw.gmit.ie/ds/" targetNamespace="http://sw.gmit.ie/ds/" elementFormDefault="qualified">
+  <xsd:element name='comment' type='xsd:string'/>
+
+  <xsd:element name='CarOrder' type='gmit:CarOrder'/>
+
+  
+
+  <xsd:simpleType name="OrderNumber">
+      <xsd:restriction base="xsd:string">
+         <xsd:pattern value="[0-9]{5}(-[A-Z]{4})?"/>
+      </xsd:restriction>
+  </xsd:simpleType>
+
+
+
+  <xsd:complexType name='Address'>
+    <xsd:annotation>
+      <xsd:documentation>
+        Purchase order schema example.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name='name'   type='xsd:string'/>
+      <xsd:element name='street' type='xsd:string'/>
+      <xsd:element name='city'   type='xsd:string'/>
+      <xsd:element name='county'  type='xsd:string'/>
+    </xsd:sequence>
+    
+  </xsd:complexType>
+
+
+  <xsd:complexType name='Cars'>
+    <xsd:sequence>
+      <xsd:element name='car' minOccurs='0' maxOccurs='unbounded'>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name='carName' type='xsd:string'/>
+            <xsd:element name='quantity'>
+              <xsd:simpleType>
+                <xsd:restriction base='xsd:positiveInteger'>
+                  <xsd:minInclusive value='1'/>
+                  <xsd:maxExclusive value='100'/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name='price'  type='xsd:decimal'/>
+            <xsd:element name='BookingDate' type='xsd:date' minOccurs='0'/>
+          </xsd:sequence>
+          
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name='CarOrder'>
+    <xsd:sequence>
+      <xsd:element name='billTo' type='gmit:Address'/>
+      <xsd:element name='cars'  type='gmit:Cars'/>
+    </xsd:sequence>
+	<xsd:attribute name='orderNumber' type='gmit:OrderNumber' use='required'/>
+    <xsd:attribute name='orderDate' type='xsd:date' use='required'/>
+  </xsd:complexType>
+</xsd:schema>
