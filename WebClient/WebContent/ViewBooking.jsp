@@ -10,6 +10,9 @@
 <body>
 <nav>
 <a href="Home.jsp">Home</a>
+<a href="DeleteBooking.jsp">Delete Booking</a>
+<a href="UpdateBooking.jsp">Update Booking</a>
+<a href="CreateBooking.jsp">Create Booking</a>
 </nav>
 <h1>View Booking</h1>
 <h2>Please enter an order number and submit to display the details</h2>

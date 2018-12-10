@@ -13,7 +13,11 @@
 <body>
 <nav>
 <a href="Home.jsp">Home</a>
+<a href="ViewBooking.jsp">View Booking</a>
+<a href="UpdateBooking.jsp">Update Booking</a>	
+<a href="DeleteBooking.jsp">Delete Booking</a>
 </nav>
+<h1>Create a new Booking</h1>
 <form action="CarServlet" method="POST">
    Order Number: <input type="text" name="orderNumber" value="<%= (int) (Math.random() * 100000) %>" readonly="readonly"/><br/>
    Name:  <input type="text" name="name" required="required"/><br/>

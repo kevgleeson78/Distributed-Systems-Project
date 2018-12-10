@@ -9,11 +9,15 @@
 </script>
 </head>
 <body>
-	<h1>Update Booking</h1>
-	<h3>Please enter a valid order number to update the booking</h3>
+	
 	<nav>
 		<a href="Home.jsp">Home</a>
+		<a href="ViewBooking.jsp">View Booking</a>
+		<a href="DeleteBooking.jsp">Delete Booking</a>	
+		<a href="CreateBooking.jsp">Create Booking</a>
 	</nav>
+	<h1>Update Booking</h1>
+	<h3>Please enter a valid order number to update the booking</h3>
 	<form id="Get-Details" method="GET" action="UpdateServlet">
 	Order Number: <input type="text" name="orderNumber"  required="required"/><br/>
 	<input type="submit" value="GET DETAILS" /><br/>

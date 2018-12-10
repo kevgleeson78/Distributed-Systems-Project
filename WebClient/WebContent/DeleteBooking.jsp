@@ -13,6 +13,9 @@
 <body>
 <nav>
 <a href="Home.jsp">Home</a>
+<a href="ViewBooking.jsp">View Booking</a>
+<a href="UpdateBooking.jsp">Update Booking</a>	
+<a href="CreateBooking.jsp">Create Booking</a>
 </nav>
 <h1>Delete Booking</h1>
 <h3>Please Enter a valid booking number to delete</h3>
