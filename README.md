@@ -50,11 +50,24 @@
 4. Right click the project and select properties and project facets. Change the java version to 1.8
   In the runtime tab select the server you have created earlier and click apply and close.
 5. Right click the project and select properties -> build path -> libraries tab -> Add external jars
-6. Add the remaining jars downloaded apart from the tstl-1.2 then click apply and close.
+6. Add the remaining jars downloaded apart from the tstl-1.2.jar file then click apply and close.
+
+
+## Adding the database
+
+1. If not installed download and install [wamp](http://www.wampserver.com/en/)
+2. Start the wamp server
+3. Left click the wamp icon in the system tray and then select php myadmin
+4. Login with root as the user name and the password blank as default.
+5. Select the import tab at the top of the page.
+6. Under file to import click the browse button and select the carorder sql file that was cloned with the repository.
+7. At the bottom of the page click GO.
+8. This will load the database with some sample entries to use.
+
 
 
 ## Running the application
 
-1. 
+1. Right click the 
 
 
