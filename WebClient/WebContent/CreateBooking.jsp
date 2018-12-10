@@ -21,6 +21,7 @@
  <!-- The below form can be accessed by the servlet via the name of each input within the request using the request.getPerameter("name") -->
 <h1>Create a new Booking</h1>
 <form action="CarServlet" method="POST">
+<!-- Math.Random to generate a random number for the order number -->
    Order Number: <input type="text" name="orderNumber" value="<%= (int) (Math.random() * 100000) %>" readonly="readonly"/><br/>
    Name:  <input type="text" name="name" required="required"/><br/>
    Country: <input type ="text" name="country"  required="required"/><br/>
@@ -28,6 +29,7 @@
    City: <input type ="text" name="city" required="required"/><br/>
 
    <!-- Adapted from: https://stackoverflow.com/questions/44679332/javascript-change-input-value-when-select-option-is-selected -->
+   <!-- Assign both text display and numerical value to retrieval -->
 	Car Model: <select id="selectCar"  onchange="myFunction(event)">
 					<option disabled selected>Choose a car</option>
     				<option value=150>Ford</option>
@@ -46,6 +48,7 @@
 </body>
 <script>
 //Adapted From: https://stackoverflow.com/questions/5913/getting-the-text-from-a-drop-down-box
+// When the option is selected the price will update along with the car name
 function myFunction(e) {
     document.getElementById("priceInput").value = e.target.value;
     document.getElementById("carModel").value =  $("#selectCar option:selected").text();
