@@ -74,7 +74,18 @@
 
 3. Within the webClient project expand the web content folder and right click home.jsp -> run as -> run on server.
 
-4. if the webClient resource on the left select it and move it over to the server so its with the DS_Project resource file.
+4. if the webClient resource on the left select it and move it over to the server so its with the DS_Project resource file. Click Finish.
+
+5. Open a browser and copy the following url to the address bar and press enter. http://localhost:8080/WebClient/Home.jsp
+
+6. The following sample order numbers from the database can be used to display update or delete an order.
+* 12799
+* 56764
+* 49153
+* 250
+* 78198
+
+7. You can also create your own order within the create order page.
 
 
 
